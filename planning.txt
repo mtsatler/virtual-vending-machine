@@ -1,0 +1,143 @@
+
+
+Nouns
+---------
+class VendingMachine
+    Properties
+    ---------
+    Dictionary<string, Items> Inventory
+    Menu MenuUI
+    Logger Log
+    decimal Balance = 00.00 to start, FeedMoney adds to, DispenseChange will reset to 0
+    --------
+    Methods
+    --------
+    void DisplayInventory()
+    return decimal (NewBalance) FeedMoney(decimal moneyInserted)
+        -UpdateBalance(moneyInserted)
+        -Log transaction
+            Logger.LogTransaction(string "FEED MONEY", decimal startBalance, decimal endBalance)
+    DispenseItem(string itemSlot)
+        -Update the item inventory
+         "B4" Inventory["B4"].Item.NumberInInventory -= 1   
+        -Log transaction
+            Logger.LogTransaction(string item, string itemSlot, decimal startBalance, decimal endBalance) )
+        -UpdateBalance(decimal getCostFromItem)
+        -Print the message using Console.WriteLine()
+            -prints item name, cost, and balance remaining
+            -AND also message based on ItemCategory
+        -At end return to menu
+    DispenseChange()
+        -Dispense Change based on current Balance
+            -Dispensed in Quarters Dimes Nickels, must be smallest of coins
+        -UpdateBalance (decimal subtractRemainingBalance)
+        new Transaction thisTransaction()
+        -Log Transaction
+    StockInventory(FilePath)
+        -Read inventory from filePath, stored as csv file
+        -Setup Inventory of items, each item starts with 5
+    public decimal UpdateBalance(decimal changeInBalance) //negative to subtract, positive to add 
+        VendingMachine.Balance += changeInBalance
+        return VendingMachine.Balance;
+      
+
+
+class Items
+    string Name
+    string ItemCategory 
+        "Chip"
+        "Candy"
+        "Drink"
+        "Gum"
+    string ItemMessage derived from ItemCategory    
+        "Crunch Crunch, Yum!" for Chips
+        "Munch Munch, Yum!" for Candy
+        "Glug Glug, Yum!" for Drink
+        "Chew Chew, Yum!" for Gum
+    decimal Price
+    int NumberInInventory
+
+class Logger
+    Write transactions to file
+        Date
+        Time
+        Transaction Type
+            FEED Money  
+            Purchase Item   
+            GIVE Change
+
+    Properties
+    ------------
+    string FilePath = "Log.txt"
+    ----------
+    Methods
+    ----------
+    string LogTransaction(string itemOrTransaction, decimal startBalance, decimal endBalance)
+    overload string LogTransaction(string itemOrTransaction, string itemSlot, decimal startBalance, decimal endBalance)
+
+    string LogTransaction(Transaction thisTransaction)
+
+    Transaction class
+        What Type   
+        ItemSlot
+        Amount
+        Balance
+        endBalance
+
+
+class Menu
+    Main Menu
+            (1) Display Vending Machine Items 
+                VendingMachine Method - Display all items in machine
+            (2) Purchase Menu
+                (1) Feed Money
+                    Method - VendingMachine.FeedMoney(decimal feedMoney)
+                (2) Select Product
+                    VendingMachine Method - Display all items in machine
+                        (Prompt for input)
+                            VendingMachine Method - CheckItemAvailability()
+                            VendingMachine Method - DispenseItem(string itemSlot)         
+                (3) Finish Transaction
+                    VendingMachine Method - DispenseChange()
+                    Return the user to the main menu      
+            (3) Exit 
+                Exits the program = return 0;
+
+Sales Report
+
+Transaction
+    Type - FeedMoney, GiveChange, DispensingItem
+    Beginning Balance
+    Ending Balance
+
+
+Verbs
+-----------
+*Display Menu
+*Dispense Item
+*Stock Vending Machine with Items
+*Feed Money into Machine
+*Dispense Change
+*Display Items in Vending Machine
+*Purchase
+*Select Product - Check if its Stock
+Log each transaction
+Track Total Sales
+
+
+ToDo List
+-------------
+Implement SalesReport
+Fix FeedMoney method in VendingMachine class    
+    -should prompt user for what denomination of bill 1, 2, 5, 10
+
+UnitTesting
+---------------
+VendingMachine.FeedMoney()
+VendingMachine.DispenseChange()
+VendingMachine.UpdateBalance() 
+VendingMachine.StockInventory()
+VendingMachine.DispenseItem()
+
+
+
